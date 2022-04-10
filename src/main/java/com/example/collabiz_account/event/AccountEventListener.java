@@ -1,6 +1,7 @@
 package com.example.collabiz_account.event;
 
 import com.example.collabiz_account.Account;
+import com.example.collabiz_account.EEmail;
 import com.example.collabiz_account.infra.mail.EmailMessage;
 import com.example.collabiz_account.infra.mail.EmailService;
 import lombok.RequiredArgsConstructor;
@@ -26,20 +27,20 @@ public class AccountEventListener {
     @EventListener
     public void handleSignUpConfirmEvent(SignUpConfirmEvent event) {
         //throw new RuntimeException();
-        Account account = event.getAccount();
-        sendEmailCheckToken(account);
+        EEmail email = event.getEmail();
+        sendEmailCheckToken(email);
     }
 
-    private void sendEmailCheckToken(Account account) {
+    private void sendEmailCheckToken(EEmail email) {
         Context context = new Context(); // model에 내용담아주듯이
-        context.setVariable("token",account.getEmailCheckToken());
-        context.setVariable("usermail", account.getEmail());
+        context.setVariable("token",email.getEmailCheckToken());
+        context.setVariable("usermail", email.getEmail());
         context.setVariable("message","COLLABIZ 서비스 사용을 위해 코드를 복사하여 붙여넣어주세요.");
 
         String message = templateEngine.process("mail/emailAuth_Template", context);
 
         EmailMessage build = EmailMessage.builder()
-                .to(account.getEmail())
+                .to(email.getEmail())
                 .subject("COLLABIZ 회원 가입 인증")
                 .message(message)
                 .build();
