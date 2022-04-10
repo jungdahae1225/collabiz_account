@@ -19,20 +19,15 @@ public class Account {
     @Column(name = "account_id")
     private Long id;
 
-    private String username; // 유저id
-    private String nickname; //유저닉네임
+    @Email //이게 id
+    @Column(unique = true,nullable = false)
+    private String email;
+
+    //private String username; // 유저id
 
     @JsonIgnore
     @Column(nullable = false)
     private String password;
-
-    @Lob
-    @Basic(fetch = FetchType.EAGER)
-    private String profileImage;
-
-    @Email
-    @Column(unique = true,nullable = false)
-    private String email;
 
     private boolean emailVerified;
 

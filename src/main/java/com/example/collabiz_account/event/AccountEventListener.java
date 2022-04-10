@@ -33,7 +33,7 @@ public class AccountEventListener {
     private void sendEmailCheckToken(Account account) {
         Context context = new Context(); // model에 내용담아주듯이
         context.setVariable("token",account.getEmailCheckToken());
-        context.setVariable("username", account.getUsername());
+        context.setVariable("usermail", account.getEmail());
         context.setVariable("message","COLLABIZ 서비스 사용을 위해 코드를 복사하여 붙여넣어주세요.");
 
         String message = templateEngine.process("mail/emailAuth_Template", context);

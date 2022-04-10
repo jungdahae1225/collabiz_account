@@ -1,9 +1,5 @@
 package com.example.collabiz_account;
 
-import buravel.buravel.modules.account.dtos.AccountDto;
-import buravel.buravel.modules.account.dtos.AccountResponseDto;
-import buravel.buravel.modules.account.validator.SignUpFormValidator;
-import buravel.buravel.modules.errors.ErrorResource;
 import com.example.collabiz_account.dtos.AccountDto;
 import com.example.collabiz_account.dtos.AccountResponseDto;
 import com.example.collabiz_account.errors.ErrorResource;

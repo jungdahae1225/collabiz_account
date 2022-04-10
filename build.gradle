@@ -30,7 +30,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     //map
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
-
+   //email
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
     // Spring Security + JWT
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'org.springframework.boot:spring-boot-starter-security'
