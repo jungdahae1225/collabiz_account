@@ -33,32 +33,25 @@ public class AccountController {
      * */
     //create 220411 dahae @부분 고쳐주기
     //이메일을 읿력하고 이메일 인증 버튼을 누르면 실행되는 메서드
-    @PostMapping("/emailVerification")
-    public ResponseEntity emailVerification(@RequestBody @Valid EmailDto emailDto, @RequestParam String token){
+    @PostMapping("/emailCheck")
+    public ResponseEntity emailCheck(@RequestBody @Valid EmailDto emailDto, @RequestParam String token){
         //1.이미 있는 이메일인가 확인 if문 통과 하면 중복 없는 것
         if (accountService.checkEmailDuplicate(emailDto.getEmail())) {
-            return ResponseEntity.notFound().build(); //@@중복 Response로 바꿔주기
+            return ResponseEntity.badRequest().build(); //@@중복 Response로 바꿔주기-프론트랑 논의
         }
 
-        EEmail email = accountService.processNewAccount(emailDto);//EmailDto를 EEmail 엔티티로 매핑(함수 이름 아직 안바꿈)
-        accountService.reSendEmailCheckToken(email); //이거 하면 이제 이메일 날라감
+        EEmail email = accountService.processEmailDtoTOEEmail(emailDto);//EmailDto를 EEmail 엔티티로 매핑(함수 이름 아직 안바꿈)
+        accountService.sendEmailCheckToken(email); //이거 하면 이제 이메일 날라감
 
-        //2.토큰을 담아 dto에
-        AccountResponseDto dto = accountService.emailVerification(email, token);
-        if(dto == null){
-            return ResponseEntity.badRequest().build();
-        } // 인증번호 맞지 않음
-
-        return ResponseEntity.ok(dto); //인증 번호 맞으면
-        //return ResponseEntity.ok().build(); //이메일 잘 보냈으면 ok
+        return ResponseEntity.ok().build(); //이메일 잘 보냈으면 ok 프론트로
     }
 
     //generate new emailCheckToken & re-send token
     //이제 사용자가 이메일로 받은 토큰을 홈페이지에 맞게 썼는가 검증하는 로직
     //@RequestParam String token으로 사용자가 적은 토큰(인증번호) 프론트에서 넘겨준다.
 
-    @PostMapping("/emailCheckToken")
-    public ResponseEntity resendEmailCheckToken(@CurrentUser EEmail email, @RequestParam String token){
+    @PostMapping("/emailVerification")
+    public ResponseEntity emailVerification(@CurrentUser EEmail email, @RequestParam String token){
 
         //현재 인증 받고 있는 유저를 저장 하여 들고다닌다. @CurrentUser를 사용해서 가지고 온다.
         AccountResponseDto dto = accountService.emailVerification(email, token);

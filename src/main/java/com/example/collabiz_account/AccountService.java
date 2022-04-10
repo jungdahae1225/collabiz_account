@@ -28,21 +28,24 @@ public class AccountService implements UserDetailsService {
 
     // signUp
 
-    public EEmail processNewAccount(@Valid EmailDto emailDto) { //
+    public EEmail processEmailDtoTOEEmail(@Valid EmailDto emailDto) { //
         EEmail email = modelMapper.map(emailDto, EEmail.class);
         return email;
     }
 
-    // resend emailCheckToken
-    private void sendSignUpConfirmEmail(EEmail email) {
+    // send emailCheckToken
+    private void sendConfirmEmail(EEmail email) {
+        //SignUpConfirmEvent의 EEmail을 이벤트에 쓸 객체로 대체해 이메일 전송 이벤트를 처리한다.
         publisher.publishEvent(new SignUpConfirmEvent(email));
     }
 
-    public void reSendEmailCheckToken(EEmail email) {//Account account
+    public void sendEmailCheckToken(EEmail email) {//Account account
         //우리는 저장 되어 있는 엔티티를 찾아서 다시 토큰 주는게 아니라 아예 처음 만드는 것이므로, 원래 있던 3줄 코드 필요 없다.
+
+        //1.토큰을 만들고 generateEmailCheckToken에서 EEmail 엔티티의 토큰에 값을 넣어준다.
         email.generateEmailCheckToken();
-        //Account saved = accountRepository.save(ac);
-        sendSignUpConfirmEmail(email);
+        //2.이메일을 보낸다
+        sendConfirmEmail(email);
     }
 
     public AccountResponseDto emailVerification(EEmail email, String token){
