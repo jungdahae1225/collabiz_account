@@ -69,7 +69,7 @@ public class AccountController {
         return ResponseEntity.ok(dto); //인증 번호 맞으면
     }
 
-    @PostMapping("/signUp") //회원가입 완료 버튼
+    @PostMapping("/signUp") //이메일 인증 완료 후 회원가입 완료 버튼
     public ResponseEntity signUp(@RequestBody @Valid AccountDto accountDto, Errors errors) {
         if (errors.hasErrors()) {
             EntityModel<Errors> jsr303error = ErrorResource.modelOf(errors);

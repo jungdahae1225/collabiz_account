@@ -25,52 +25,12 @@ public class Account {
     @JoinColumn(name = "mail_id")
     private EEmail email; //어노테이션이랑 겹쳐서 EEmail로 함
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //private String username; // 유저id
-
     @JsonIgnore
     @Column(nullable = false)
     private String password;
 
-    private boolean emailVerified;
+    private String nickname; //유저 회사 이름
 
-    @JsonIgnore
-    private String emailCheckToken;
+    //이하 코드 EEmail로 옮김!!!
 
-    //private LocalDateTime emailCheckTokenGeneratedAt;
-
-    public void generateEmailCheckToken() {
-        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-        uuid = uuid.substring(0, 10);
-        this.emailCheckToken = uuid;
-        //this.emailCheckTokenGeneratedAt = LocalDateTime.now();
-    }
-
-    public boolean isValidToken(String token) {
-        return this.emailCheckToken.equals(token);
-    }
-
-    public void completeSignUp() {
-        this.setEmailVerified(true);
-    }
 }
