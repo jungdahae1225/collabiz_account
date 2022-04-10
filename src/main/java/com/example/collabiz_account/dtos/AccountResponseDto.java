@@ -12,9 +12,7 @@ import javax.validation.constraints.Email;
 @AllArgsConstructor
 public class AccountResponseDto {
     private Long id;
-    private String username;
-    @Lob
-    private String profileImage;
+
     @Email
     private String email;
     private boolean emailVerified;
