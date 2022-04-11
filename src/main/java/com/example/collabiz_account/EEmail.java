@@ -19,6 +19,10 @@ public class EEmail {
     @Column(name = "email_id")
     private Long id;
 
+    public EEmail(String email) {
+        this.email = email;
+    }
+
     @Email
     @Column(unique = true,nullable = false)
     private String email;

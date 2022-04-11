@@ -7,10 +7,10 @@ import com.example.collabiz_account.event.SignUpConfirmEvent;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,13 +23,14 @@ public class AccountService{
 
     private final AccountRepository accountRepository;
     private final ApplicationEventPublisher publisher;
-    private final PasswordEncoder passwordEncoder;
+    ///private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
     // signUp
 
     public EEmail processEmailDtoTOEEmail(@Valid EmailDto emailDto) { //
         EEmail email = modelMapper.map(emailDto, EEmail.class);
+        //EEmail email = new EEmail(emailDto.getEmail());
         return email;
     }
 
@@ -60,7 +61,7 @@ public class AccountService{
     // save account
     public Account saveNewAccount(AccountDto accountDto) {
         Account map = modelMapper.map(accountDto, Account.class);
-        map.setPassword(passwordEncoder.encode(map.getPassword()));
+        //map.setPassword(passwordEncoder.encode(map.getPassword()));
         //map.generateEmailCheckToken(); 이메일 토큰 처리는 분리해 주었으니 이제 없어도 된다.
         Account saved = accountRepository.save(map);
         return saved;

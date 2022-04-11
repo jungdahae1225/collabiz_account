@@ -29,19 +29,30 @@ public class AccountController {
      * 5. 프론트에서 받은 토큰의 번호 넘겨줌
      * 6. 넘어온 토큰이 일치 하는지 확인
      * */
+
+    @ResponseBody
+    @GetMapping("/post")
+    public String de(){
+        return "test ok";
+    }
+
     //create 220411 dahae @부분 고쳐주기
     //이메일을 읿력하고 이메일 인증 버튼을 누르면 실행되는 메서드
     @PostMapping("/emailCheck")
-    public ResponseEntity emailCheck(@RequestBody @Valid EmailDto emailDto, @RequestParam String token){
+    @ResponseBody
+    //ResponseEntity
+    public String emailCheck(@RequestBody @Valid EmailDto emailDto){
         //1.이미 있는 이메일인가 확인 if문 통과 하면 중복 없는 것
         if (accountService.checkEmailDuplicate(emailDto.getEmail())) {
-            return ResponseEntity.badRequest().build(); //@@중복 Response로 바꿔주기-프론트랑 논의
+            //return ResponseEntity.badRequest().build(); //@@중복 Response로 바꿔주기-프론트랑 논의
         }
 
         EEmail email = accountService.processEmailDtoTOEEmail(emailDto);//EmailDto를 EEmail 엔티티로 매핑(함수 이름 아직 안바꿈)
         accountService.sendEmailCheckToken(email); //이거 하면 이제 이메일 날라감
 
-        return ResponseEntity.ok().build(); //이메일 잘 보냈으면 ok 프론트로
+        //return ResponseEntity.ok().build(); //이메일 잘 보냈으면 ok 프론트로
+        System.out.println("emailCheck ok");
+        return "emailCheck ok";
     }
 
     //generate new emailCheckToken & re-send token
