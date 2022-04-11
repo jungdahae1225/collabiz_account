@@ -20,7 +20,6 @@ public class Account {
     private Long id;
 
     @Email //이게 id
-    @Column(unique = true,nullable = false)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "mail_id")
     private EEmail email; //어노테이션이랑 겹쳐서 EEmail로 함

@@ -17,8 +17,6 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 public class AccountController {
-
-    private final AccountRepository accountRepository;
     private final AccountService accountService;
     private final SignUpFormValidator validator;
 

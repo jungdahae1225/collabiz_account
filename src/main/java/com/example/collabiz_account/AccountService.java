@@ -19,7 +19,7 @@ import javax.validation.Valid;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class AccountService implements UserDetailsService {
+public class AccountService{
 
     private final AccountRepository accountRepository;
     private final ApplicationEventPublisher publisher;
@@ -84,11 +84,6 @@ public class AccountService implements UserDetailsService {
         return accountRepository.findByEmail(email);
     }
 
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
 
     //create 220411 dahae
     public boolean checkEmailDuplicate(String email) {
