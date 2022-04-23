@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -47,15 +49,14 @@ public class AccountController {
             //return ResponseEntity.badRequest().build(); //@@중복 Response로 바꿔주기-프론트랑 논의
         }
 
-        //EEmail email = accountService.processEmailDtoTOEEmail(emailDto);//EmailDto를 EEmail 엔티티로 매핑(함수 이름 아직 안바꿈)
-        EEmail email = emailDto.toEntity();
+        EEmail email = accountService.processEmailDtoTOEEmail(emailDto);//EmailDto를 EEmail 엔티티로 매핑(함수 이름 아직 안바꿈)
+        //EEmail email = emailDto.toEntity();
         accountService.sendEmailCheckToken(email); //이거 하면 이제 이메일 날라감
 
         //return ResponseEntity.ok().build(); //이메일 잘 보냈으면 ok 프론트로
         System.out.println("emailCheck ok");
         return "emailCheck ok";
     }
-
     //generate new emailCheckToken & re-send token
     //이제 사용자가 이메일로 받은 토큰을 홈페이지에 맞게 썼는가 검증하는 로직
     //@RequestParam String token으로 사용자가 적은 토큰(인증번호) 프론트에서 넘겨준다.

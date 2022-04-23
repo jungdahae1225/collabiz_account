@@ -4,6 +4,7 @@ import com.example.collabiz_account.dtos.AccountDto;
 import com.example.collabiz_account.dtos.AccountResponseDto;
 import com.example.collabiz_account.dtos.EmailDto;
 import com.example.collabiz_account.event.SignUpConfirmEvent;
+import com.sun.mail.util.logging.MailHandler;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
@@ -11,10 +12,15 @@ import org.springframework.context.ApplicationEventPublisher;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Properties;
+import java.util.Random;
 
 @Service
 @Transactional
@@ -27,7 +33,6 @@ public class AccountService{
     private final ModelMapper modelMapper;
 
     // signUp
-
     public EEmail processEmailDtoTOEEmail(EmailDto emailDto) { //
         EEmail email = modelMapper.map(emailDto, EEmail.class);
         //EEmail email = new EEmail(emailDto.getEmail());
