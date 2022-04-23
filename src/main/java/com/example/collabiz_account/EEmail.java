@@ -23,7 +23,7 @@ public class EEmail {
         this.email = email;
     }
 
-    @Email
+    //@Email
     @Column(unique = true,nullable = false)
     private String email;
 

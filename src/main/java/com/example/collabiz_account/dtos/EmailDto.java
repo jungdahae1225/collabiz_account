@@ -1,5 +1,6 @@
 package com.example.collabiz_account.dtos;
 
+import com.example.collabiz_account.EEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,13 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmailDto {
-    @Email
+    //@Email
     @NotBlank
     private String email;
+
+    public EEmail toEntity() {
+        return EEmail.builder()
+                .email(email)
+                .build();
+    }
 }

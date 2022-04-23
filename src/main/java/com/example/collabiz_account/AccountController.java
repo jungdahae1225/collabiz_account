@@ -47,7 +47,8 @@ public class AccountController {
             //return ResponseEntity.badRequest().build(); //@@중복 Response로 바꿔주기-프론트랑 논의
         }
 
-        EEmail email = accountService.processEmailDtoTOEEmail(emailDto);//EmailDto를 EEmail 엔티티로 매핑(함수 이름 아직 안바꿈)
+        //EEmail email = accountService.processEmailDtoTOEEmail(emailDto);//EmailDto를 EEmail 엔티티로 매핑(함수 이름 아직 안바꿈)
+        EEmail email = emailDto.toEntity();
         accountService.sendEmailCheckToken(email); //이거 하면 이제 이메일 날라감
 
         //return ResponseEntity.ok().build(); //이메일 잘 보냈으면 ok 프론트로

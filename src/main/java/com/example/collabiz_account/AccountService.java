@@ -28,7 +28,7 @@ public class AccountService{
 
     // signUp
 
-    public EEmail processEmailDtoTOEEmail(@Valid EmailDto emailDto) { //
+    public EEmail processEmailDtoTOEEmail(EmailDto emailDto) { //
         EEmail email = modelMapper.map(emailDto, EEmail.class);
         //EEmail email = new EEmail(emailDto.getEmail());
         return email;
